@@ -57,21 +57,6 @@ Your PDFs
 
 ---
 
-## 🛠️ Tech Stack
-
-| Component | 
-|---|---|
-| UI Framework 
-| PDF Parsing 
-| Text Chunking 
-| Embeddings 
-| Vector Store 
-| LLM 
-| Memory 
-| Env Management 
-
----
-
 ## 🚀 Getting Started
 
 Follow these steps to run the project on your local machine.
