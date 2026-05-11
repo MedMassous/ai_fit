@@ -59,16 +59,16 @@ Your PDFs
 
 ## 🛠️ Tech Stack
 
-| Component | Technology |
+| Component | 
 |---|---|
-| UI Framework | [Streamlit](https://streamlit.io/) |
-| PDF Parsing | [PyPDF2](https://pypdf2.readthedocs.io/) |
-| Text Chunking | LangChain `CharacterTextSplitter` |
-| Embeddings | HuggingFace `all-MiniLM-L6-v2` |
-| Vector Store | [FAISS](https://faiss.ai/) (CPU) |
-| LLM | [Groq](https://groq.com/) — LLaMA 3.3 70B Versatile |
-| Memory | LangChain `ConversationBufferMemory` |
-| Env Management | `python-dotenv` |
+| UI Framework 
+| PDF Parsing 
+| Text Chunking 
+| Embeddings 
+| Vector Store 
+| LLM 
+| Memory 
+| Env Management 
 
 ---
 
