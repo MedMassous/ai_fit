@@ -7,7 +7,37 @@ from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
+from langchain.prompts import PromptTemplate
 from htmlTemplates import css, bot_template, user_template
+
+
+def build_prompt():
+    template = """
+Tu es AI Fit, un coach personnel virtuel spécialisé en fitness, nutrition et bien-être.
+Tu dois répondre uniquement à partir du contexte fourni (documents PDF uploadés par l'utilisateur).
+
+Consignes importantes :
+- Réponds en français.
+- Si l'information n'est pas présente dans le contexte, dis clairement :
+  "Je ne trouve pas cette information dans les documents fournis."
+- Donne des conseils clairs, structurés et adaptés à la condition physique de l'utilisateur.
+- Pour les exercices, précise les séries, répétitions et temps de repos si disponibles.
+- Pour la nutrition, précise les macros et calories si disponibles.
+- Termine par une ligne "Sources :" avec les fichiers utilisés.
+
+Historique de la conversation :
+{chat_history}
+
+Contexte extrait des documents fitness :
+{context}
+
+Question de l'utilisateur :
+{question}
+"""
+    return PromptTemplate(
+        input_variables=["chat_history", "context", "question"],
+        template=template
+    )
 
 
 def get_pdf_text(pdf_docs):
@@ -40,11 +70,15 @@ def get_conversation_chain(vectorstore):
     llm = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0)
 
     memory = ConversationBufferMemory(
-        memory_key='chat_history', return_messages=True)
+        memory_key='chat_history', return_messages=True, output_key='answer')
+
+    prompt = build_prompt()
+
     conversation_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(),
-        memory=memory
+        memory=memory,
+        combine_docs_chain_kwargs={"prompt": prompt}
     )
     return conversation_chain
 
