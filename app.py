@@ -17,7 +17,7 @@ Tu es AI Fit, un coach personnel virtuel spécialisé en fitness, nutrition et b
 Tu dois répondre uniquement à partir du contexte fourni (documents PDF uploadés par l'utilisateur).
 
 Consignes importantes :
-- Réponds en français.
+- Réponds en français ou englais.
 - Si l'information n'est pas présente dans le contexte, dis clairement :
   "Je ne trouve pas cette information dans les documents fournis."
 - Donne des conseils clairs, structurés et adaptés à la condition physique de l'utilisateur.
@@ -52,7 +52,7 @@ def get_pdf_text(pdf_docs):
 def get_text_chunks(text):
     text_splitter = CharacterTextSplitter(
         separator="\n",
-        chunk_size=1000,
+        chunk_size=500,
         chunk_overlap=200,
         length_function=len
     )
