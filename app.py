@@ -11,7 +11,6 @@ from langchain.prompts import PromptTemplate
 from htmlTemplates import css, bot_template, user_template
 
 
-# ── ONLY CHANGE: prompt now uses the user profile ──────────────────────────
 def build_prompt(name="User", level="beginner", goal="lose weight"):
     template = f"""
 Tu es AI Fit, un coach personnel virtuel spécialisé en fitness, nutrition et bien-être.
@@ -47,7 +46,6 @@ Question de l'utilisateur :
     )
 
 
-# ── ALL FUNCTIONS BELOW ARE UNCHANGED ──────────────────────────────────────
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -62,7 +60,7 @@ def get_text_chunks(text):
     text_splitter = CharacterTextSplitter(
         separator="\n",
         chunk_size=500,
-        chunk_overlap=200,
+        chunk_overlap=100,
         length_function=len
     )
     chunks = text_splitter.split_text(text)
@@ -123,10 +121,9 @@ def main():
 
     with st.sidebar:
 
-        # ── NEW: User Profile section ───────────────────────────────────────
         st.subheader("👤 Your Profile")
 
-        name = st.text_input("Your name", placeholder="e.g. Alex")
+        name = st.text_input("Your name", placeholder="e.g. med")
 
         level = st.selectbox(
             "Fitness level",
@@ -138,8 +135,7 @@ def main():
             ["Lose Weight", "Build Muscle", "Endurance"]
         )
 
-        st.divider()  # just a line to separate profile from PDF upload
-        # ───────────────────────────────────────────────────────────────────
+        st.divider()  
 
         st.subheader("📄 Upload your fitness docs")
         pdf_docs = st.file_uploader(
